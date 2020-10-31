@@ -10,30 +10,52 @@ public class ZombieModeManager : MonoBehaviour
 	public static ZombieModeManager main { get; private set; }
 
 	[Header("Settings")]
+	public string prefix;
 	[SerializeField] private int numberOfPlayers;
 	[SerializeField] private float startZombieModeDelay;
+	public float timerBetweenRounds;
 
 	[Header("Sounds")]
 	[SerializeField] private AudioClip spawnSound;
 
 	//Singleton objects
-	public ZoneManager zone;
-	public PlayerManager playerManager;
+	[HideInInspector] public ZoneManager zone;
+	[HideInInspector] public PlayerManager playerManager;
+	[HideInInspector] public GameLogic gameLogic;
+
+	//Other variables
+	public GameObject[] playerSpawns;
 
 	/// <summary>
 	/// Awake for singleton
 	/// </summary>
 	private void Awake()
 	{
-		if(main == null)
+		//Create a singleton
+		if (main == null)
 		{
 			main = this;
-			DontDestroyOnLoad(gameObject);
 		}
 		else
 		{
 			Destroy(gameObject);
 		}
+
+		//Get player Spawns
+		playerSpawns = GameObject.FindGameObjectsWithTag("Player spawn");
+
+		//Stop Zombie Mode if the requirements are missing
+		if(playerSpawns.Length == 0)
+		{
+			Debug.LogError(prefix + " Requirements for the mod to work are missing!");
+			gameObject.SetActive(false);
+			return;
+		}
+
+		//Load Singleton Objects
+		zone = GetComponentInChildren<ZoneManager>();
+		playerManager = GetComponentInChildren<PlayerManager>();
+		gameLogic = GetComponentInChildren<GameLogic>();
 	}
 
 	/// <summary>
@@ -41,16 +63,13 @@ public class ZombieModeManager : MonoBehaviour
 	/// </summary>
 	private void Start()
 	{
-		//Load Singleton Objects
-		zone = GetComponentInChildren<ZoneManager>();
-		playerManager = GetComponentInChildren<PlayerManager>();
-
 		//Start the zombie mode
 		Invoke(nameof(StartZombieMode), startZombieModeDelay);
 	}
 
 	private void StartZombieMode()
 	{
+		//Spawn players in Scene
 		playerManager.SpawnPlayers(numberOfPlayers);
 	}
 }

@@ -22,6 +22,7 @@ public class ZombieSpawner : MonoBehaviour
 		if (debri == null)
 		{
 			gameObject.SetActive(false);
+			Debug.LogError(ZombieModeManager.main.prefix + " Spawner " + gameObject.name + " is missing settings! Spawner will be disabled.");
 			return;
 		}
 
