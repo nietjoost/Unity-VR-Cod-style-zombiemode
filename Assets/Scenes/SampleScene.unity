@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 308366520}
   - component: {fileID: 308366519}
   m_Layer: 0
-  m_Name: Spawner Example
+  m_Name: S - 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zone: 0
-  debri: {fileID: 0}
+  debri: {fileID: 308366518}
 --- !u!4 &308366520
 Transform:
   m_ObjectHideFlags: 0
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefix: '[Zombie Mod]'
-  numberOfPlayers: 0
+  numberOfPlayers: 1
   startZombieModeDelay: 0
   timerBetweenRounds: 10
   spawnSound: {fileID: 0}

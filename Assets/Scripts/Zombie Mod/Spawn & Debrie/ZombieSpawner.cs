@@ -29,4 +29,9 @@ public class ZombieSpawner : MonoBehaviour
 		//Add spawner to zones
 		ZombieModeManager.main.zone.AddSpawnerToZone(zone, this);
 	}
+
+	public void SpawnZombie()
+	{
+		Debug.Log("Spawn zombie!");
+	}
 }

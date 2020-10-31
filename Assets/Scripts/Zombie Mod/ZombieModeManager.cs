@@ -11,7 +11,7 @@ public class ZombieModeManager : MonoBehaviour
 
 	[Header("Settings")]
 	public string prefix;
-	[SerializeField] private int numberOfPlayers;
+	public int numberOfPlayers;
 	[SerializeField] private float startZombieModeDelay;
 	public float timerBetweenRounds;
 
@@ -24,7 +24,7 @@ public class ZombieModeManager : MonoBehaviour
 	[HideInInspector] public GameLogic gameLogic;
 
 	//Other variables
-	public GameObject[] playerSpawns;
+	[HideInInspector] public GameObject[] playerSpawns;
 
 	/// <summary>
 	/// Awake for singleton
@@ -70,6 +70,9 @@ public class ZombieModeManager : MonoBehaviour
 	private void StartZombieMode()
 	{
 		//Spawn players in Scene
-		playerManager.SpawnPlayers(numberOfPlayers);
+		//playerManager.SpawnPlayers(numberOfPlayers);
+
+		//Start Game Logic
+		gameLogic.StartRound1();
 	}
 }

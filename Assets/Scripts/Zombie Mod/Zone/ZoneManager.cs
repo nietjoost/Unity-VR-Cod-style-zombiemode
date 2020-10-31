@@ -19,13 +19,13 @@ public class ZoneManager : MonoBehaviour
     /// <summary>
 	/// Variables
 	/// </summary>
-    Dictionary<Zones, ZombieSpawner> zombieSpawner = new Dictionary<Zones, ZombieSpawner>();
+    public Dictionary<Zones, ZombieSpawner> zombieSpawners = new Dictionary<Zones, ZombieSpawner>();
 
     /// <summary>
 	/// Add a zombie spawner to a zone
 	/// </summary>
     public void AddSpawnerToZone(Zones zone, ZombieSpawner zs)
 	{
-        zombieSpawner.Add(zone, zs);
+        zombieSpawners.Add(zone, zs);
 	}
 }
