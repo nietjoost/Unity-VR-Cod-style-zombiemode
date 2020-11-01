@@ -11,6 +11,9 @@ public class continuesMovement : MonoBehaviour
 	[Header("Settings")]
 	public AxisHandler2D inputAxisController;
 
+	private CharacterController VRRig;
+	private XRRig XRRig;
+
 	/// <summary>
 	/// Onenable and Disable controller input event
 	/// </summary>
@@ -24,13 +27,22 @@ public class continuesMovement : MonoBehaviour
 		inputAxisController.OnValueChange -= SetAxisMovement;
 	}
 
-	private void Update()
+	/// <summary>
+	/// Get needed components
+	/// </summary>
+	private void Awake()
 	{
-		
+		XRRig = GetComponent<XRRig>();
+		VRRig = GetComponent<CharacterController>();
 	}
 
+	/// <summary>
+	/// Controller input and move current VRRig
+	/// </summary>
 	private void SetAxisMovement(XRController controller, Vector2 axis)
 	{
-		Debug.Log(axis);
+		Quaternion headYaw = Quaternion.Euler(0, XRRig.cameraGameObject.transform.eulerAngles.y, 0);
+		Vector3 direction = headYaw * new Vector3(axis.x, 0, axis.y);
+		VRRig.Move(direction * Time.fixedDeltaTime * ZombieModeManager.main.playerSpeed);
 	}
 }
