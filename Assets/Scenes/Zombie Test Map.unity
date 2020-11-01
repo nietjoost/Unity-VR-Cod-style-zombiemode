@@ -549,9 +549,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4ed948e727d574ea96fab6cffe83ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allButtonHandlers: []
-  allAxisHandler2D: []
-  allAxisHandlers: []
+  allButtonHandlers:
+  - {fileID: 11400000, guid: db883316f24c250439a6499fa095ff03, type: 2}
+  - {fileID: 11400000, guid: 128a9bcc545255c42842f9cbb1a2d611, type: 2}
+  - {fileID: 11400000, guid: 2d6b002da0ae7cf45b7dd2b322c54873, type: 2}
+  allAxisHandler2D:
+  - {fileID: 11400000, guid: 8a2d4ffca8480fb48b6ef34f6b00aaa8, type: 2}
+  allAxisHandlers:
+  - {fileID: 11400000, guid: 08c28c0bb7224c344b4aa2e029702eb0, type: 2}
 --- !u!135 &457610616
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -563,7 +568,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &457610617
 Rigidbody:
@@ -1016,6 +1021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1283035514}
   - component: {fileID: 1283035513}
+  - component: {fileID: 1283035515}
   m_Layer: 0
   m_Name: VR Rig
   m_TagString: Untagged
@@ -1056,6 +1062,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1283035515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283035512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddbbe4bd4eddbf4d87758a3be1f2730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputAxisController: {fileID: 11400000, guid: 8a2d4ffca8480fb48b6ef34f6b00aaa8,
+    type: 2}
 --- !u!1 &1402389486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,9 +1277,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4ed948e727d574ea96fab6cffe83ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allButtonHandlers: []
-  allAxisHandler2D: []
-  allAxisHandlers: []
+  allButtonHandlers:
+  - {fileID: 11400000, guid: f65805e1d36053941b11dc6fe0f8d357, type: 2}
+  - {fileID: 11400000, guid: ac441b9864329744584bc33e055ad155, type: 2}
+  - {fileID: 11400000, guid: c0c70a6aabdcf9046ab2be6e25fb3212, type: 2}
+  allAxisHandler2D:
+  - {fileID: 11400000, guid: a26ca1ee7a49417449a92ac968a6f3cd, type: 2}
+  allAxisHandlers:
+  - {fileID: 11400000, guid: 08c28c0bb7224c344b4aa2e029702eb0, type: 2}
 --- !u!135 &1765592298
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1271,7 +1296,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1765592299
 Rigidbody:
