@@ -52,6 +52,8 @@ public class continuesMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		CapsuleFollowHeadset();
+
 		//Gravity
 		if (CheckIfGrounded())
 			fallingSpeed = 0;
@@ -66,5 +68,12 @@ public class continuesMovement : MonoBehaviour
 		Vector3 rayStart = transform.TransformPoint(VRRig.center);
 		float rayLength = VRRig.center.y + 0.01f;
 		return Physics.SphereCast(rayStart, VRRig.radius, Vector3.down, out RaycastHit hitInfo, rayLength, ZombieModeManager.main.groundLayer);
+	}
+
+	private void CapsuleFollowHeadset()
+	{
+		VRRig.height = XRRig.cameraInRigSpaceHeight + 0.2f;
+		Vector3 capsuleCenter = transform.InverseTransformPoint(XRRig.cameraGameObject.transform.position);
+		VRRig.center = new Vector3(capsuleCenter.x, VRRig.height/2 + VRRig.skinWidth, capsuleCenter.z);
 	}
 }
