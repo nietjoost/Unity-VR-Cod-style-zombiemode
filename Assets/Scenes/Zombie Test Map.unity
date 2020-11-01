@@ -989,6 +989,9 @@ MonoBehaviour:
   playerSpeed: 4
   startZombieModeDelay: 0
   timerBetweenRounds: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
   spawnSound: {fileID: 8300000, guid: 6ce9443c06731e94d937d11cb4642b30, type: 3}
   zone: {fileID: 0}
   playerManager: {fileID: 0}

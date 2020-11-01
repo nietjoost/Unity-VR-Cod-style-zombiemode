@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class continuesMovement : MonoBehaviour
@@ -13,6 +14,9 @@ public class continuesMovement : MonoBehaviour
 
 	private CharacterController VRRig;
 	private XRRig XRRig;
+
+	private float gravity = -9.81f;
+	private float fallingSpeed;
 
 	/// <summary>
 	/// Onenable and Disable controller input event
@@ -44,5 +48,23 @@ public class continuesMovement : MonoBehaviour
 		Quaternion headYaw = Quaternion.Euler(0, XRRig.cameraGameObject.transform.eulerAngles.y, 0);
 		Vector3 direction = headYaw * new Vector3(axis.x, 0, axis.y);
 		VRRig.Move(direction * Time.fixedDeltaTime * ZombieModeManager.main.playerSpeed);
+	}
+
+	private void FixedUpdate()
+	{
+		//Gravity
+		if (CheckIfGrounded())
+			fallingSpeed = 0;
+		else
+			fallingSpeed += gravity * Time.fixedDeltaTime;
+
+		VRRig.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
+	}
+
+	private bool CheckIfGrounded()
+	{
+		Vector3 rayStart = transform.TransformPoint(VRRig.center);
+		float rayLength = VRRig.center.y + 0.01f;
+		return Physics.SphereCast(rayStart, VRRig.radius, Vector3.down, out RaycastHit hitInfo, rayLength, ZombieModeManager.main.groundLayer);
 	}
 }

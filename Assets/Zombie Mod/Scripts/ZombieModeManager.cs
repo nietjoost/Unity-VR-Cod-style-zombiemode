@@ -18,6 +18,9 @@ public class ZombieModeManager : MonoBehaviour
 	[SerializeField] private float startZombieModeDelay;
 	public float timerBetweenRounds;
 
+	[Header("Setup")]
+	public LayerMask groundLayer;
+
 	[Header("Sounds")]
 	[SerializeField] private AudioClip spawnSound;
 
