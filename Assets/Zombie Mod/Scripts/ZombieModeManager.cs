@@ -21,6 +21,9 @@ public class ZombieModeManager : MonoBehaviour
 	[Header("Setup")]
 	public LayerMask groundLayer;
 
+	[Header("Objects")]
+	public GameObject zombie;
+
 	[Header("Sounds")]
 	[SerializeField] private AudioClip spawnSound;
 

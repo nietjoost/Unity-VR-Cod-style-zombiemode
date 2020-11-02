@@ -19,7 +19,7 @@ public class ZombieSpawner : MonoBehaviour
 	private void Start()
 	{
 		//If no debri, disable spawner
-		if (debri == null)
+		if (debri == null || !debri.GetComponent<Debri>())
 		{
 			gameObject.SetActive(false);
 			Debug.LogError(ZombieModeManager.main.prefix + " Spawner " + gameObject.name + " is missing settings! Spawner will be disabled.");
@@ -28,10 +28,23 @@ public class ZombieSpawner : MonoBehaviour
 
 		//Add spawner to zones
 		ZombieModeManager.main.zone.AddSpawnerToZone(zone, this);
+
+		debriScript = GetComponent<Debri>();
 	}
 
+	/// <summary>
+	/// Spawn zombie by zombie spawner
+	/// </summary>
 	public void SpawnZombie()
 	{
-		Debug.Log("Spawn zombie!");
+		Instantiate(ZombieModeManager.main.zombie, transform);
+	}
+
+	/// <summary>
+	/// Get debri transform for first zombie target
+	/// </summary>
+	public Transform GetDebriTransform()
+	{
+		return debri.transform;
 	}
 }
