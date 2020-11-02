@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class ZombieAI : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class ZombieAI : MonoBehaviour
 	private NavMeshAgent agent;
 	private Vector3 target;
 
-	private bool passedDebri;
+	private bool passedDebri = false, iddle = false;
 
 	/// <summary>
 	/// Get components
@@ -48,22 +49,40 @@ public class ZombieAI : MonoBehaviour
 		Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
 		transform.rotation = rotation;
 
-		
+		if(passedDebri && !iddle)
+		{
+			agent.SetDestination(GetClosestPlayer());
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Debri"))
 		{
-			target = GameObject.FindGameObjectWithTag("Player").transform.position;
-			agent.SetDestination(target);
+			passedDebri = true;
 			return;
 		}
 
 		if (other.CompareTag("Player"))
 		{
 			animator.SetBool("idle_walk", false);
+			iddle = true;
 			agent.ResetPath();
 		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			animator.SetBool("idle_walk", true);
+			agent.SetDestination(GetClosestPlayer());
+		}
+	}
+
+	private Vector3 GetClosestPlayer()
+	{
+		target = GameObject.FindGameObjectWithTag("Player").transform.position;
+		return target;
 	}
 }

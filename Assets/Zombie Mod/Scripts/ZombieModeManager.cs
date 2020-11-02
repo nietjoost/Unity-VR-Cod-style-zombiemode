@@ -25,12 +25,13 @@ public class ZombieModeManager : MonoBehaviour
 	public GameObject zombie;
 
 	[Header("Sounds")]
-	[SerializeField] private AudioClip spawnSound;
+	public AudioClip spawnSound;
 
 	//Singleton objects
 	[HideInInspector] public ZoneManager zone;
 	[HideInInspector] public PlayerManager playerManager;
 	[HideInInspector] public GameLogic gameLogic;
+	[HideInInspector] public PlaySounds playSounds;
 
 	//Other variables
 	[HideInInspector] public GameObject[] playerSpawns;
@@ -65,6 +66,7 @@ public class ZombieModeManager : MonoBehaviour
 		zone = GetComponentInChildren<ZoneManager>();
 		playerManager = GetComponentInChildren<PlayerManager>();
 		gameLogic = GetComponentInChildren<GameLogic>();
+		playSounds = GetComponentInChildren<PlaySounds>();
 	}
 
 	/// <summary>
@@ -73,6 +75,7 @@ public class ZombieModeManager : MonoBehaviour
 	private void Start()
 	{
 		//Start the zombie mode
+		playSounds.PlaySoundOnAllPlayers(spawnSound);
 		Invoke(nameof(StartZombieMode), startZombieModeDelay);
 	}
 

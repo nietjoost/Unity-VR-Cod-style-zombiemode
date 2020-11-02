@@ -76,6 +76,7 @@ public class GameLogic : MonoBehaviour
 		Debug.Log("Start round " + currentRound + " + with " + zsc.GetCalculatedZombieCount() + " zombies!");
 
 		//Start new round
+		ZombieModeManager.main.playSounds.PlaySoundOnAllPlayers(ZombieModeManager.main.spawnSound);
 		Invoke(nameof(SetCanSpawnToTrue), ZombieModeManager.main.timerBetweenRounds);
 	}
 
