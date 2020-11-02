@@ -57,6 +57,14 @@ public class ZombieAI : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if (other.CompareTag("Bullet"))
+		{
+			ZombieModeManager.main.gameLogic.currentDeadZombies++;
+			Destroy(other.gameObject);
+			Destroy(gameObject);
+			return;
+		}
+
 		if (other.CompareTag("Debri"))
 		{
 			passedDebri = true;
@@ -68,6 +76,7 @@ public class ZombieAI : MonoBehaviour
 			animator.SetBool("idle_walk", false);
 			iddle = true;
 			agent.ResetPath();
+			return;
 		}
 	}
 

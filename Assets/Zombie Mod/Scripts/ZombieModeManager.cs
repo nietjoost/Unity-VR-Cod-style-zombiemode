@@ -29,12 +29,9 @@ public class ZombieModeManager : MonoBehaviour
 
 	//Singleton objects
 	[HideInInspector] public ZoneManager zone;
-	[HideInInspector] public PlayerManager playerManager;
+	[HideInInspector] public PlayersManager playerManager;
 	[HideInInspector] public GameLogic gameLogic;
 	[HideInInspector] public PlaySounds playSounds;
-
-	//Other variables
-	[HideInInspector] public GameObject[] playerSpawns;
 
 	/// <summary>
 	/// Awake for singleton
@@ -51,20 +48,9 @@ public class ZombieModeManager : MonoBehaviour
 			Destroy(gameObject);
 		}
 
-		//Get player Spawns
-		playerSpawns = GameObject.FindGameObjectsWithTag("Player spawn");
-
-		//Stop Zombie Mode if the requirements are missing
-		if(playerSpawns.Length == 0)
-		{
-			Debug.LogError(prefix + " Requirements for the mod to work are missing!");
-			gameObject.SetActive(false);
-			return;
-		}
-
 		//Load Singleton Objects
 		zone = GetComponentInChildren<ZoneManager>();
-		playerManager = GetComponentInChildren<PlayerManager>();
+		playerManager = GetComponentInChildren<PlayersManager>();
 		gameLogic = GetComponentInChildren<GameLogic>();
 		playSounds = GetComponentInChildren<PlaySounds>();
 	}
@@ -81,10 +67,7 @@ public class ZombieModeManager : MonoBehaviour
 
 	private void StartZombieMode()
 	{
-		//Spawn players in Scene
-		//playerManager.SpawnPlayers(numberOfPlayers);
-
 		//Start Game Logic
-		gameLogic.StartRound1();
+		gameLogic.SetCanSpawnToTrue();
 	}
 }

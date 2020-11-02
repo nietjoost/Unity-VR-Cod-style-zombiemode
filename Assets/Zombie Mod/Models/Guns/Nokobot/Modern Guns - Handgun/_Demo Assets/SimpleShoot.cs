@@ -17,8 +17,8 @@ public class SimpleShoot : MonoBehaviour
 
     [Header("Settings")]
     [Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 2f;
-    [Tooltip("Bullet Speed")] [SerializeField] private float shotPower = 500f;
-    [Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectPower = 150f;
+    [Tooltip("Bullet Speed")] [SerializeField] private float shotPower = 9999f;
+    [Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectPower = 9999f;
 
     [Header("Sounds")]
     private AudioSource source;
@@ -64,7 +64,6 @@ public class SimpleShoot : MonoBehaviour
 
         // Create a bullet and add force on it in direction of the barrel
         Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
-
     }
 
     //This function creates a casing at the ejection slot
