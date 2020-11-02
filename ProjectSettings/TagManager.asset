@@ -9,6 +9,7 @@ TagManager:
   - Player spawn
   - Zombie
   - Player UI
+  - Bullet
   layers:
   - Default
   - TransparentFX
