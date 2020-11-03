@@ -25,7 +25,11 @@ public class ZombieAI : MonoBehaviour
 		agent = GetComponent<NavMeshAgent>();
 
 		//Set first taget
-		target = transform.parent.GetComponent<ZombieSpawner>().GetDebriTransform().position;
+		if (transform.parent.GetComponent<ZombieSpawner>().debri != null)
+			target = transform.parent.GetComponent<ZombieSpawner>().GetDebriTransform().position;
+		else
+			target = GetClosestPlayer();
+
 		agent.SetDestination(target);
 	}
 
@@ -61,6 +65,7 @@ public class ZombieAI : MonoBehaviour
 		{
 			ZombieModeManager.main.gameLogic.currentDeadZombies++;
 			Destroy(other.gameObject);
+			GetComponent<AudioSource>().Stop();
 			Destroy(gameObject);
 			return;
 		}
@@ -74,8 +79,11 @@ public class ZombieAI : MonoBehaviour
 		if (other.CompareTag("Player"))
 		{
 			animator.SetBool("idle_walk", false);
+			animator.SetBool("idle_attack", true);
+
 			iddle = true;
 			agent.ResetPath();
+			other.GetComponent<PlayerStats>().RemoveHealth(45);
 			return;
 		}
 	}
@@ -84,6 +92,8 @@ public class ZombieAI : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
+			iddle = false;
+			animator.SetBool("idle_attack", false);
 			animator.SetBool("idle_walk", true);
 			agent.SetDestination(GetClosestPlayer());
 		}
@@ -94,4 +104,6 @@ public class ZombieAI : MonoBehaviour
 		target = GameObject.FindGameObjectWithTag("Player").transform.position;
 		return target;
 	}
+
+
 }

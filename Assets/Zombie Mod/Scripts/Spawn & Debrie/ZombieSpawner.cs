@@ -8,8 +8,8 @@ public class ZombieSpawner : MonoBehaviour
 	/// Variables
 	/// </summary>
 	[Header("Settings")]
-	[SerializeField] private Zones zone;
-	[SerializeField] private GameObject debri;
+	public Zones zone;
+	public GameObject debri;
 
 	private Debri debriScript;
 
@@ -19,15 +19,15 @@ public class ZombieSpawner : MonoBehaviour
 	private void Start()
 	{
 		//If no debri, disable spawner
-		if (debri == null || !debri.GetComponent<Debri>())
+		/*if (debri == null || !debri.GetComponent<Debri>())
 		{
 			gameObject.SetActive(false);
 			Debug.LogError(ZombieModeManager.main.prefix + " Spawner " + gameObject.name + " is missing settings! Spawner will be disabled.");
 			return;
-		}
+		}*/
 
 		//Add spawner to zones
-		ZombieModeManager.main.zone.AddSpawnerToZone(zone, this);
+		ZombieModeManager.main.zone.AddSpawnerToZone(this);
 
 		debriScript = GetComponent<Debri>();
 	}

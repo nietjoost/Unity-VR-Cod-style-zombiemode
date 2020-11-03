@@ -14,6 +14,7 @@ public class ZombieModeManager : MonoBehaviour
 	public Zones startZone;
 	public int numberOfPlayers;
 	public int startMoney;
+	public int startHealth;
 	public int playerSpeed;
 	[SerializeField] private float startZombieModeDelay;
 	public float timerBetweenRounds;

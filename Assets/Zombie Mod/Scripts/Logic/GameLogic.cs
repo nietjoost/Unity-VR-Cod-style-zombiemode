@@ -95,17 +95,25 @@ public class GameLogic : MonoBehaviour
 		currentSpawnedZombies++;
 
 		//Get available spawners
-		ZombieSpawner[] spawners = getAvailableSpawners();
+		List<ZombieSpawner> spawners = getAvailableSpawners();
 
 		//Get random spawner to spawn zombie
-		spawners[Random.Range(0, spawners.Length)].SpawnZombie();
+		spawners[Random.Range(0, spawners.Count)].SpawnZombie();
 	}
 
 	/// <summary>
 	/// Get all zombie spawners in active zones
 	/// </summary>
-	private ZombieSpawner[] getAvailableSpawners()
+	private List<ZombieSpawner> getAvailableSpawners()
 	{
-		return ZombieModeManager.main.zone.zombieSpawners.Values.ToArray();
+		List<ZombieSpawner> local = new List<ZombieSpawner>();
+		foreach(ZombieSpawner zs in ZombieModeManager.main.zone.zombieSpawners)
+		{
+			if(ZombieModeManager.main.zone.openZones.Contains(zs.zone))
+			{
+				local.Add(zs);
+			}
+		}
+		return local;
 	}
 }
