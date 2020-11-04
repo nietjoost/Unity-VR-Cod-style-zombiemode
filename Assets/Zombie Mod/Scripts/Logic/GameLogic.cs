@@ -10,6 +10,7 @@ public class GameLogic : MonoBehaviour
 	/// </summary>
 	private int currentRound = 1;
 	private bool canSpawn = false;
+	public int zombieHealth;
 
 	private ZombieSpawnCalculator zsc;
 
@@ -24,6 +25,8 @@ public class GameLogic : MonoBehaviour
 	private void Start()
 	{
 		zsc = new ZombieSpawnCalculator();
+
+		zombieHealth = ZombieModeManager.main.startZombieHealth;
 	}
 
 	/// <summary>
@@ -72,6 +75,9 @@ public class GameLogic : MonoBehaviour
 		zsc.NextRoundCalculate();
 
 		Debug.Log("Start round " + currentRound + " + with " + zsc.GetCalculatedZombieCount() + " zombies!");
+
+		//Zombie new round settings
+		zombieHealth += 100;
 
 		//Start new round
 		ZombieModeManager.main.playSounds.PlaySoundOnAllPlayers(ZombieModeManager.main.spawnSound);

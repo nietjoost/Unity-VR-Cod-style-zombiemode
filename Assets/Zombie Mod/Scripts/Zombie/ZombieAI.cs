@@ -12,6 +12,7 @@ public class ZombieAI : MonoBehaviour
 	private Animator animator;
 	private NavMeshAgent agent;
 	private Vector3 target;
+	private float health;
 
 	private bool passedDebri = false, iddle = false;
 
@@ -61,15 +62,6 @@ public class ZombieAI : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Bullet"))
-		{
-			ZombieModeManager.main.gameLogic.currentDeadZombies++;
-			Destroy(other.gameObject);
-			GetComponent<AudioSource>().Stop();
-			Destroy(gameObject);
-			return;
-		}
-
 		if (other.CompareTag("Debri"))
 		{
 			passedDebri = true;
@@ -105,5 +97,20 @@ public class ZombieAI : MonoBehaviour
 		return target;
 	}
 
+	public void SetHealth(int newHealth)
+	{
+		health = newHealth;
+	}
 
+	public void TakeDamage(int damage)
+	{
+		health -= damage;
+
+		if (health <= 0)
+		{
+			ZombieModeManager.main.playerManager.stats.AddMoney(100);
+			ZombieModeManager.main.gameLogic.currentDeadZombies++;
+			Destroy(gameObject);
+		}
+	}
 }

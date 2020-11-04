@@ -37,7 +37,8 @@ public class ZombieSpawner : MonoBehaviour
 	/// </summary>
 	public void SpawnZombie()
 	{
-		Instantiate(ZombieModeManager.main.zombie, transform);
+		GameObject zom = Instantiate(ZombieModeManager.main.zombie, transform);
+		zom.GetComponent<ZombieAI>().SetHealth(ZombieModeManager.main.gameLogic.zombieHealth);
 	}
 
 	/// <summary>

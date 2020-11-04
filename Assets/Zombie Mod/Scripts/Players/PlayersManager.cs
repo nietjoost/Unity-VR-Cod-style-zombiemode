@@ -9,7 +9,7 @@ public class PlayersManager : MonoBehaviour
 	/// Variables needed for player manager script
 	/// </summary>
 	private GameObject player;
-	private PlayerStats stats;
+	public PlayerStats stats;
 
 	private void Start()
 	{
