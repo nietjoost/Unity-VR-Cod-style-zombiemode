@@ -7,7 +7,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class GunShoot : MonoBehaviour
 {
     [Header("Prefab Refrences")]
-    public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public GameObject muzzleFlashPrefab;
 
