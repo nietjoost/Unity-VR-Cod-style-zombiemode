@@ -10,12 +10,14 @@ public class GameLogic : MonoBehaviour
 	/// </summary>
 	private int currentRound = 1;
 	private bool canSpawn = false;
+	public int zombieHealth;
 
 	private ZombieSpawnCalculator zsc;
 
 	private float currentTime;
 
-	private int currentSpawnedZombies = 0;
+	public int currentSpawnedZombies = 0;
+	public int currentDeadZombies = 0;
 
 	/// <summary>
 	/// Initialize zombie calculator
@@ -23,6 +25,8 @@ public class GameLogic : MonoBehaviour
 	private void Start()
 	{
 		zsc = new ZombieSpawnCalculator();
+
+		zombieHealth = ZombieModeManager.main.startZombieHealth;
 	}
 
 	/// <summary>
@@ -32,29 +36,25 @@ public class GameLogic : MonoBehaviour
 	{
 		if (canSpawn)
 		{
+			//Spawn zombie after few seconds
 			currentTime += Time.deltaTime;
 
 			if (currentTime > zsc.betweenZombieTime)
 			{
 				currentTime = 0;
-
+				//Spawn zombie
 				if (currentSpawnedZombies < zsc.GetCalculatedZombieCount())
 				{
 					SpawnZombie();
 				}
-				else
-				{
-					NextRound();
-				}
+			}
+
+			//Next round calculator
+			if(currentDeadZombies == zsc.GetCalculatedZombieCount())
+			{
+				NextRound();
 			}
 		}
-	}
-
-	public void StartRound1()
-	{
-		canSpawn = true;
-
-		zsc.GetCalculatedZombieCount();
 	}
 
 	/// <summary>
@@ -66,6 +66,7 @@ public class GameLogic : MonoBehaviour
 		canSpawn = false;
 		currentTime = 0;
 		currentSpawnedZombies = 0;
+		currentDeadZombies = 0;
 
 		//Set new current round
 		currentRound++;
@@ -75,14 +76,19 @@ public class GameLogic : MonoBehaviour
 
 		Debug.Log("Start round " + currentRound + " + with " + zsc.GetCalculatedZombieCount() + " zombies!");
 
+		//Zombie new round settings
+		zombieHealth += 100;
+
 		//Start new round
+		ZombieModeManager.main.playSounds.PlaySoundOnAllPlayers(ZombieModeManager.main.spawnSound);
+		ZombieModeManager.main.playerManager.SetNextRoundOnUI(currentRound);
 		Invoke(nameof(SetCanSpawnToTrue), ZombieModeManager.main.timerBetweenRounds);
 	}
 
 	/// <summary>
 	/// Only to set the variable canSpawn to true
 	/// </summary>
-	private void SetCanSpawnToTrue()
+	public void SetCanSpawnToTrue()
 	{
 		canSpawn = true;
 	}
@@ -95,14 +101,25 @@ public class GameLogic : MonoBehaviour
 		currentSpawnedZombies++;
 
 		//Get available spawners
-		ZombieSpawner[] spawners = getAvailableSpawners();
+		List<ZombieSpawner> spawners = getAvailableSpawners();
 
 		//Get random spawner to spawn zombie
-		spawners[Random.Range(0, spawners.Length)].SpawnZombie();
+		spawners[Random.Range(0, spawners.Count)].SpawnZombie();
 	}
 
-	private ZombieSpawner[] getAvailableSpawners()
+	/// <summary>
+	/// Get all zombie spawners in active zones
+	/// </summary>
+	private List<ZombieSpawner> getAvailableSpawners()
 	{
-		return ZombieModeManager.main.zone.zombieSpawners.Values.ToArray();
+		List<ZombieSpawner> local = new List<ZombieSpawner>();
+		foreach(ZombieSpawner zs in ZombieModeManager.main.zone.zombieSpawners)
+		{
+			if(ZombieModeManager.main.zone.openZones.Contains(zs.zone))
+			{
+				local.Add(zs);
+			}
+		}
+		return local;
 	}
 }

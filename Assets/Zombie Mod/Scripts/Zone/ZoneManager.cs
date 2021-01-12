@@ -19,7 +19,7 @@ public class ZoneManager : MonoBehaviour
     /// <summary>
 	/// Variables
 	/// </summary>
-    public Dictionary<Zones, ZombieSpawner> zombieSpawners = new Dictionary<Zones, ZombieSpawner>();
+    public HashSet<ZombieSpawner> zombieSpawners = new HashSet<ZombieSpawner>();
     public HashSet<Zones> openZones = new HashSet<Zones>();
 
 	/// <summary>
@@ -33,9 +33,9 @@ public class ZoneManager : MonoBehaviour
 	/// <summary>
 	/// Add a zombie spawner to a zone
 	/// </summary>
-	public void AddSpawnerToZone(Zones zone, ZombieSpawner zs)
+	public void AddSpawnerToZone(ZombieSpawner zs)
 	{
-        zombieSpawners.Add(zone, zs);
+        zombieSpawners.Add(zs);
 	}
 
 	/// <summary>

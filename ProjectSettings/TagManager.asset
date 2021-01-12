@@ -7,6 +7,10 @@ TagManager:
   - Spawner
   - Debri
   - Player spawn
+  - Zombie
+  - Player UI
+  - Bullet
+  - ZombieSpawner
   layers:
   - Default
   - TransparentFX
@@ -17,9 +21,9 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
-  - 
+  - Zombie
+  - Gun
+  - Player
   - 
   - 
   - 
