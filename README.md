@@ -1,5 +1,5 @@
 # Unity VR Cod style zombiemode
-A Call of Duty style Zombie mode in Unity for VR
+A Call of Duty style Zombie mode in Unity for VR. A player needs to kill all the zombies in each round. Buy weapons and doors to survive the zombie horde!
 
 ## Screenshots
 ![Screenshot of the game](https://github.com/nietjoost/Unity-VR-Cod-style-zombiemode/blob/Master/Screenshots/Screenshot%201.PNG)
