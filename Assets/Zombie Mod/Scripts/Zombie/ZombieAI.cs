@@ -27,9 +27,13 @@ public class ZombieAI : MonoBehaviour
 
 		//Set first taget
 		if (transform.parent.GetComponent<ZombieSpawner>().debri != null)
+		{
 			target = transform.parent.GetComponent<ZombieSpawner>().GetDebriTransform().position;
+		}
 		else
+		{
 			target = GetClosestPlayer();
+		}
 
 		agent.SetDestination(target);
 	}
@@ -45,7 +49,7 @@ public class ZombieAI : MonoBehaviour
 	/// <summary>
 	/// Zombie AI logic
 	/// </summary>
-	private void FixedUpdate()
+	private void Update()
 	{
 		//Look at target
 		Vector3 relativePos = target - transform.position;
@@ -65,7 +69,6 @@ public class ZombieAI : MonoBehaviour
 		if (other.CompareTag("Debri"))
 		{
 			passedDebri = true;
-			return;
 		}
 
 		if (other.CompareTag("Player"))
@@ -76,7 +79,6 @@ public class ZombieAI : MonoBehaviour
 			iddle = true;
 			agent.ResetPath();
 			other.GetComponent<PlayerStats>().RemoveHealth(45);
-			return;
 		}
 	}
 
